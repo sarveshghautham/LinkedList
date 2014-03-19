@@ -1,0 +1,88 @@
+This is a linked list program which can create multiple lists and store them in a file. When a list has to be edited 
+or added, the list is loaded from the main memory and the operations are performed on the main memory. 
+When the operations are done, the list is written back to the file.
+
+Steps to execute:
+
+/* To compile all the files */
+make;
+
+/* To run the binary/executable file */
+
+./linked_list insert 2 3 4 5
+
+/* To clean the unnecessary files before compiling again */
+make clean;
+
+/* If gdb is required */
+make gdb;
+
+Operations:
+
+Create:
+./linked_list create list_id data
+
+Insert:
+./linked_list insert list_id data1 data2 . . . . dataN
+
+Display:
+./linked_list display list_id
+
+Remove node:
+./linked_list remove_node list_id data1 data2 . . . . dataN
+
+Remove List:
+./linked_list remove_list list_id
+
+Design:
+
+Create: 
+A new list is created and the data is stored in the list.out file. The corresponding list id is stored in list_ids.out file.
+
+Insert:
+If the list is already created, the list is brought into the memory and then the given data is inserted into the list. After 
+insertion, the updated list is written back in the file. If the list is not already created, the new list is created and the 
+same operations are done as above.
+
+Display:
+The list id is specified and that list is loaded into memory and displayed.
+
+Remove node:
+The list with the given list id is loaded into the memory and the given data is matched with the data present in the list. If 
+it matches, the node is removed and then written back to the file. If the node is the last node in the list, the list is removed 
+from the list.out file and the list id is removed from the list_ids.out file.
+
+Remove list:
+The list with the given list id is loaded into the memory and deleted. The new set of lists are written back to the file. The
+list id is also deleted from the list_ids.out file.
+
+Code files:
+file_operations.c - wrappers for file open, read, close
+list.c - all list operations are done here
+main.c - The main function. The entire process is controlled from here.
+
+Output files:
+list.out - stores the linked list data
+list_ids.out - stores the list ids of the lists present in the list.out file
+
+Test cases:
+
+$make
+gcc -c -g main.c
+gcc -c -g file_operations.c
+gcc -c -g list.c
+gcc -o linked_list.out main.o file_operations.o list.o
+
+$ ./linked_list insert 2 3 4 5 6
+$ ./linked_list insert 3 4 5 6
+$ ./linked_list insert 4 5 6
+$ ./linked_list insert 5 6
+$ ./linked_list display 2
+$ ./linked_list display 1000
+$ ./linked_list remove_node 5 6
+$ ./linked_list remove_node 4 6
+$ ./linked_list remove_node 3 5
+$ ./linked_list remove_node 2 4
+$ ./linked_list remove_list 2
+$ ./linked_list remove_list 10
+$ ./linked_list remove_node 2 100
